@@ -48,8 +48,20 @@ if(mapData.value === null)
 {
   console.error("NO MAP DATA")
 }
+
+const lang = window.location.pathname.includes("bg") ? "bg" : "en";
+const enVersion = Object.values(JSON.parse(mapData.value).en);
+const bgVersion = Object.values(JSON.parse(mapData.value).bg);
+
 //parse the obj
-Object.values(JSON.parse(mapData.value)).forEach(el => {
-    //creates marker with text and zoom on click
+if (lang === "en")
+{
+  enVersion.forEach(el => {
     ZoomMarker(map, [el.lat,el.long], 10, `<a href="${el.url}">Visit and explore ${el.name}!</a>`)
-});
+  });
+}
+else if (lang === "bg") {
+  bgVersion.forEach(el => {
+    ZoomMarker(map, [el.lat,el.long], 10, `<a href="${el.url}">Visit and explore ${el.name}!</a>`)
+  });
+}
